@@ -43,6 +43,12 @@
                 <artifactId>speedbay-commons</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.crowdcode.speedbay</groupId>
+                <artifactId>auction-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
