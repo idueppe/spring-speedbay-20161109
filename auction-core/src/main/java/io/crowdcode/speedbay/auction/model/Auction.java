@@ -1,11 +1,16 @@
 package io.crowdcode.speedbay.auction.model;
 
+import io.crowdcode.speedbay.auction.common.LocalDateTimePersistenceConverter;
 import io.crowdcode.speedbay.common.time.TimeMachine;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,10 +24,15 @@ import java.util.List;
 @Accessors(chain=true)
 @ToString
 //@EqualsAndHashCode
+@Entity
 public class Auction extends AbstractEntity {
 
     private String owner;
+
+    @Convert(converter = LocalDateTimePersistenceConverter.class)
     private LocalDateTime beginDate;
+
+    @Convert(converter = LocalDateTimePersistenceConverter.class)
     private LocalDateTime expireDate;
 
     private BigDecimal minAmount;
@@ -30,6 +40,7 @@ public class Auction extends AbstractEntity {
     private String title;
     private String description;
 
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Bid> bids = new ArrayList<>();
 
     public Bid getHighestBid() {
