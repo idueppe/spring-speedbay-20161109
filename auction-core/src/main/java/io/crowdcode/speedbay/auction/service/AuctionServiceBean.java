@@ -2,6 +2,7 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
@@ -16,11 +17,16 @@ import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class AuctionServiceBean implements AuctionService, InitializingBean {
+
+    // Autowired mit Setter Injection
+    @Autowired(required = false)
+    private Optional<BadWordValidator> badWordValidator = Optional.empty();
 
     // Autowired mit Field Injection
     //  @Autowired
@@ -34,7 +40,7 @@ public class AuctionServiceBean implements AuctionService, InitializingBean {
         this.auctionRepository = repository;
     }
 
-    // Autowired mit Setter Injection
+
     public AuctionServiceBean() {
     }
 
@@ -61,7 +67,17 @@ public class AuctionServiceBean implements AuctionService, InitializingBean {
     }
 
     @Override
-    public Long placeAuction(String title, String description, BigDecimal minAmount) {
+    public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
+
+        if (badWordValidator.isPresent()) {
+            badWordValidator.get().checkBadWords(title);
+            badWordValidator.get().checkBadWords(description);
+        }
+
+        if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
+            minAmount = BigDecimal.ONE;
+        }
+
         Auction auction = new Auction()
                 .setTitle(title)
                 .setDescription(description)
