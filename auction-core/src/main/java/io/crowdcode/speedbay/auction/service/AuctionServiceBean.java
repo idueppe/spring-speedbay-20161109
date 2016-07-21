@@ -2,10 +2,12 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
+import io.crowdcode.speedbay.common.AnsiColor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -25,14 +28,24 @@ public class AuctionServiceBean implements AuctionService {
     @Autowired
     private AuctionRepository auctionRepository;
 
+    @Autowired(required = false)
+    private Optional<BadWordValidator> badWordValidator = Optional.empty();
+
     public AuctionServiceBean() {
     }
 
+    @Autowired
     public AuctionServiceBean(AuctionRepository auctionRepository) {
+        log.info(AnsiColor.purple("Creating AuctionServiceBean with {}"),auctionRepository);
         this.auctionRepository = auctionRepository;
     }
 
-    public Long placeAuction(String title, String description, BigDecimal minAmount) {
+    public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
+
+        if (badWordValidator.isPresent()) {
+            badWordValidator.get().checkBadWords(title);
+            badWordValidator.get().checkBadWords(description);
+        }
 
         if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
             minAmount = BigDecimal.ONE;
