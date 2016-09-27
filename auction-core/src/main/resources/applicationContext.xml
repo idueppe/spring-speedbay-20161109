@@ -5,7 +5,6 @@
 
 
     <bean id="auctionService" class="io.crowdcode.speedbay.auction.service.AuctionServiceBean">
-        <constructor-arg index="0" ref="beanName"/>
     </bean>
 
     <bean id="beanName" class="java.lang.String">

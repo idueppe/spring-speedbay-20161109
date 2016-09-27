@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static io.crowdcode.speedbay.common.AnsiColor.yellow;
-
 /**
  * @author Ingo Düppe (Crowdcode)
  */
@@ -38,38 +36,36 @@ public class AuctionServiceBean implements AuctionService {
         }
 
         Auction auction = new Auction()
-                .withOwner("owner") // wo kommt der Principal her
-                .withTitle(title)
-                .withDescription(description)
-                .withMinAmount(minAmount)
-                .withBeginDate(LocalDateTime.now())
-                .withExpireDate(LocalDateTime.now().plusMinutes(5));
+                .setOwner("owner") // wo kommt der Principal her
+                .setTitle(title)
+                .setDescription(description)
+                .setMinAmount(minAmount)
+                .setBeginDate(LocalDateTime.now())
+                .setExpireDate(LocalDateTime.now().plusMinutes(5));
 
         Auction save = auctionRepository.save(auction);
         return save.getId();
     }
 
-    public AuctionInfoDto findAuction(Long auctionId) {
-        return toAuctionDto(auctionRepository.findOne(auctionId));
+    public Auction findAuction(Long auctionId) {
+        return auctionRepository.findOne(auctionId);
     }
 
-    public List<AuctionInfoDto> findRunningAuctions() {
+    public List<Auction> findRunningAuctions() {
         final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
                 .filter(Auction::isRunning)
-                .map(this::toAuctionDto)
                 .collect(Collectors.toList());
     }
 
-    public List<AuctionInfoDto> findExpiredAuctions() {
+    public List<Auction> findExpiredAuctions() {
         final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
                 .filter(Auction::isExpired)
-                .map(this::toAuctionDto)
                 .collect(Collectors.toList());
     }
 
@@ -89,23 +85,9 @@ public class AuctionServiceBean implements AuctionService {
             throw new BidTooLowException(auction.getHighestBid());
         }
 
-        Bid bid = new Bid().withAmount(amount).withEmail("bidder"); // Principal with his email
+        Bid bid = new Bid().setAmount(amount).setEmail("bidder"); // Principal with his email
         auction.getBids().add(bid);
         auctionRepository.save(auction);
-    }
-
-    private AuctionInfoDto toAuctionDto(Auction auction) {
-        return convertToAuctionInfoDto(auction);
-    }
-
-    private AuctionInfoDto convertToAuctionInfoDto(Auction auction) {
-        AuctionInfoDto dto = new AuctionInfoDto()
-                .withId(auction.getId())
-                .withTitle(auction.getTitle())
-                .withHighestBidder(auction.getHighestBid().getEmail())
-                .withHighestBidAmount(auction.getHighestBid().getAmount());
-        log.info(yellow("Converted to {}"), dto);
-        return dto;
     }
 
 
