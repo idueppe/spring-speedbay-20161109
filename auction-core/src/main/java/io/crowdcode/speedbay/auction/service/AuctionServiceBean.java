@@ -2,6 +2,8 @@ package io.crowdcode.speedbay.auction.service;
 
 import lombok.extern.slf4j.Slf4j;
 
+import static io.crowdcode.speedbay.common.AnsiColor.green;
+
 /**
  * @author Ingo Düppe (Crowdcode)
  */
@@ -21,9 +23,6 @@ public class AuctionServiceBean implements AuctionService {
     public void setName(String name) {
         this.name = name;
     }
-
-
-    private static final Logger log = LoggerFactory.getLogger(AuctionServiceBean.class);
 
 
 

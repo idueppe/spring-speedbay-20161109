@@ -15,21 +15,21 @@ public class AuctionFixture {
 
     public static Auction createTestAuction(String title, int amount) {
         return buildAuction()
-                .withDescription("description")
-                .withMinAmount(BigDecimal.ONE)
-                .withTitle(title)
-                .withBids(Arrays.asList(
+                .setDescription("description")
+                .setMinAmount(BigDecimal.ONE)
+                .setTitle(title)
+                .setBids(Arrays.asList(
                         new Bid()
-                                .withAmount(BigDecimal.valueOf(amount))
-                                .withEmail("kontakt@crowdcode.io")));
+                                .setAmount(BigDecimal.valueOf(amount))
+                                .setEmail("kontakt@crowdcode.io")));
     }
 
     public static Auction buildDefaultAuction() {
         return buildAuction()
-                .withTitle("MacBook Pro")
-                .withMinAmount(BigDecimal.ONE)
-                .withDescription("MacBook Pro 15\" Retina")
-                .withBids(Arrays.asList(
+                .setTitle("MacBook Pro")
+                .setMinAmount(BigDecimal.ONE)
+                .setDescription("MacBook Pro 15\" Retina")
+                .setBids(Arrays.asList(
                         buildLowBid(),
                         buildHighBid())
                 );
@@ -37,21 +37,21 @@ public class AuctionFixture {
 
     public static Auction buildAuction() {
         return new Auction()
-                .withBeginDate(LocalDateTime.now())
-                .withExpireDate(LocalDateTime.now().plus(2, ChronoUnit.MINUTES))
-                .withOwner("unittest");
+                .setBeginDate(LocalDateTime.now())
+                .setExpireDate(LocalDateTime.now().plus(2, ChronoUnit.MINUTES))
+                .setOwner("unittest");
     }
 
     public static Bid buildHighBid() {
         return new Bid()
-                .withAmount(BigDecimal.TEN)
-                .withEmail("test@unit.org");
+                .setAmount(BigDecimal.TEN)
+                .setEmail("test@unit.org");
     }
 
     public static Bid buildLowBid() {
         return new Bid()
-                .withAmount(BigDecimal.ONE)
-                .withEmail("unit@test.org");
+                .setAmount(BigDecimal.ONE)
+                .setEmail("unit@test.org");
     }
 
 }
