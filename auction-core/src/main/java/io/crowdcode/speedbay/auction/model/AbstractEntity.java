@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Getter @Setter @Accessors(chain = true)
 @EqualsAndHashCode @ToString
-public class AbstractEntity implements Identifiable<Long> {
+public abstract class AbstractEntity implements Identifiable<Long> {
 
     private Long id;
 

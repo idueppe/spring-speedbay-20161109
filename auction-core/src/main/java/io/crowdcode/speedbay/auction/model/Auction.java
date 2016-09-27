@@ -48,7 +48,7 @@ public class Auction extends AbstractEntity {
     public boolean isRunning() {
         LocalDateTime now = TimeMachine.now();
         return !beginDate.isAfter(now)
-                && expireDate.isAfter(TimeMachine.now());
+                && expireDate.isAfter(now);
     }
 
 
