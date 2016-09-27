@@ -31,7 +31,7 @@ public class AuctionRepositoryTest {
     public void testApplicationContextWithIntegration() throws Exception {
         //TODO AuctionRepository Bean aus dem ApplicationContext laden
 
-        AuctionRepository repository = context.getBean("auctionRepositoryInMemoryBean", AuctionRepository.class);
+        AuctionRepository repository = context.getBean("auctionRepository", AuctionRepository.class);
 
         assertNotNull(repository);
 
