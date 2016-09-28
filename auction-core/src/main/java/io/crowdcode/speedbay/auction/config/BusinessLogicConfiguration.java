@@ -26,7 +26,7 @@ public class BusinessLogicConfiguration {
     @Bean
     public AuctionRepositoryInMemoryBean auctionRepositoryInMemoryBean(InMemoryStore<Auction> storeAuction3) {
         AuctionRepositoryInMemoryBean repository = new AuctionRepositoryInMemoryBean();
-        repository.setStore((InMemoryStore<Auction>) storeAuction3);
+        repository.setStore(storeAuction3);
         return repository;
     }
 
