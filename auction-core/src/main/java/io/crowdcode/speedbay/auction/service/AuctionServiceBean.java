@@ -2,6 +2,7 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
@@ -39,11 +40,12 @@ public class AuctionServiceBean implements AuctionService {
         this.auctionRepository = auctionRepository;
     }
 
-    public Long placeAuction(String title, String description, BigDecimal minAmount) {
+    public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
 
-        badWordValidator.ifPresent(validator -> validator.checkBadWords(title));
-        badWordValidator.ifPresent(validator -> validator.checkBadWords(description));
-
+        if (badWordValidator.isPresent()) {
+            badWordValidator.get().checkBadWords(title);
+            badWordValidator.get().checkBadWords(description);
+        }
 
         if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
             minAmount = BigDecimal.ONE;
