@@ -2,11 +2,9 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.SystemException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
@@ -22,15 +20,17 @@ import static io.crowdcode.speedbay.common.AnsiColor.green;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Service
+@Slf4j
 public class BadWordValidatorBean implements BadWordValidator {
-
-    private static final Logger log = LoggerFactory.getLogger(BadWordValidatorBean.class);
 
     @Value("classpath:badWords.txt")
     private Resource badWordsFile;
 
     private List<String> badWords;
+
+//    public BadWordValidatorBean(@Value("classpath:badWords.txt") Resource badWordsFile) {
+//
+//    }
 
     @PostConstruct
     private void postConstruct() {
@@ -55,12 +55,8 @@ public class BadWordValidatorBean implements BadWordValidator {
 
     @Override
     public void checkBadWords(String title) throws BadWordException {
-        if (title != null && badWords != null) {
-            for (String badWord : badWords) {
-                if (title.contains(badWord)) {
-                    throw new BadWordException(badWord);
-                }
-            }
+        if (isInvalid(title)) {
+            throw new BadWordException(title);
         }
     }
 

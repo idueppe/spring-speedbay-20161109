@@ -3,7 +3,7 @@ package io.crowdcode.speedbay.auction.exception;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-public class BadWordException extends SystemException {
+public class BadWordException extends ApplicationException {
 
     public BadWordException() {
     }

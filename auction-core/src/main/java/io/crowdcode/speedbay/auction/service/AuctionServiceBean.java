@@ -2,12 +2,12 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +20,29 @@ import java.util.stream.Collectors;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Slf4j
 @Service
 public class AuctionServiceBean implements AuctionService {
 
-    private final static Logger log = LoggerFactory.getLogger(AuctionServiceBean.class);
-
     @Autowired(required = false)
     private Optional<BadWordValidator> badWordValidator = Optional.empty();
+
+//    private BadWordValidator badWordValidator;
+
+//    Ach wie schön wenn es funktionieren würde.
+//    @Autowired
+//    private Optional<BadWordValidator> badWordValidator;
 
 
     @Autowired
     private AuctionRepository auctionRepository;
 
-    public Long placeAuction(String title, String description, BigDecimal minAmount) {
+    public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
 
-        badWordValidator.ifPresent(validator -> validator.checkBadWords(title));
-        badWordValidator.ifPresent(validator -> validator.checkBadWords(description));
-
+        if (badWordValidator.isPresent()) {
+            badWordValidator.get().checkBadWords(title);
+            badWordValidator.get().checkBadWords(description);
+        }
 
         if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
             minAmount = BigDecimal.ONE;
