@@ -3,7 +3,6 @@ package io.crowdcode.speedbay.auction.service;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -19,6 +18,6 @@ public class AuctionServiceTest {
         AuctionService auctionService = context.getBean("auctionService", AuctionService.class);
         assertNotNull(auctionService);
 
-        ((GenericApplicationContext)context).close();
+        ((ClassPathXmlApplicationContext)context).close();
     }
 }

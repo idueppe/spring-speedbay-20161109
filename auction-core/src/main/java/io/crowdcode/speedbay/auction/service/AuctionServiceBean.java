@@ -1,15 +1,20 @@
 package io.crowdcode.speedbay.auction.service;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-public class AuctionServiceBean implements AuctionService, ApplicationContextAware {
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-//        ((GenericApplicationContext)applicationContext).close(); DO NOT DO THIS
+@Slf4j
+@Setter @Getter @Accessors(chain = true)
+public class AuctionServiceBean implements AuctionService {
+
+    private String name;
+
+    public AuctionServiceBean() {
+        log.debug("AuctionServiceBean Constructor");
     }
 }
