@@ -1,46 +1,19 @@
 package io.crowdcode.speedbay.auction.model;
 
 import io.crowdcode.speedbay.common.Identifiable;
-
-import java.io.Serializable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-public class AbstractEntity<T extends AbstractEntity, ID extends Serializable> implements Identifiable<ID> {
+@Getter @Setter @Accessors(chain = true)
+@EqualsAndHashCode @ToString
+public abstract class AbstractEntity implements Identifiable<Long> {
 
-    private ID id;
+    private Long id;
 
-    @Override
-    public ID getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(ID id) {
-        this.id = id;
-    }
-
-
-    @SuppressWarnings("unchecked")
-    public T withId(final ID id) {
-        this.id = id;
-        return (T) this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AbstractEntity)) return false;
-
-        AbstractEntity<?, ?> that = (AbstractEntity<?, ?>) o;
-
-        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return getId() != null ? getId().hashCode() : 0;
-    }
 }

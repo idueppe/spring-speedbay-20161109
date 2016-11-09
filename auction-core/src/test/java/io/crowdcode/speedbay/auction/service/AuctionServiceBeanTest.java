@@ -13,13 +13,20 @@ import static org.junit.Assert.assertNotNull;
 public class AuctionServiceBeanTest {
 
     @Test
-    public void testSpringContext() throws Exception {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+    public void testApplicationContext() throws Exception {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
+        context.getBean(AuctionService.class);
 
         AuctionService auctionService = context.getBean("auctionService", AuctionService.class);
-        assertNotNull(auctionService);
-    }
 
+        assertNotNull(auctionService);
+
+        Arrays.stream(context.getBeanDefinitionNames())
+                .forEach(
+                        beanName -> System.out.println(beanName));
+
+        context.close();
+
+    }
 }
