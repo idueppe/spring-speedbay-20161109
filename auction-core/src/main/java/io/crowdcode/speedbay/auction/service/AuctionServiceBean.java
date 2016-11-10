@@ -7,11 +7,9 @@ import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.common.time.TimeMachine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,6 +25,7 @@ import static io.crowdcode.speedbay.common.AnsiColor.blue;
 @Slf4j
 public class AuctionServiceBean implements AuctionService {
 
+    @Autowired
     private AuctionRepository auctionRepository;
 
     public AuctionServiceBean() {

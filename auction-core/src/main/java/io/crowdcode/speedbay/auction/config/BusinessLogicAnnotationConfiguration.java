@@ -20,6 +20,7 @@ import org.springframework.context.annotation.FilterType;
                         pattern = "io\\.crowdcode\\.speedbay\\.auction\\.config\\..*"
                 )
 )
+
 public class BusinessLogicAnnotationConfiguration {
 
     // Variante 2
