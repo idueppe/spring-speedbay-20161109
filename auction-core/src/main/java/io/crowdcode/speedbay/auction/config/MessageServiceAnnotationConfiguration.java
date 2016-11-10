@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Import;
  * @author Ingo Düppe (Crowdcode)
  */
 @Configuration
-@ComponentScan(basePackages = {"io.crowdcode.speedbay.auction"})
-//@ComponentScan
-@Import(BusinessLogicConfiguration.class)
+@ComponentScan
+@Import(BusinessLogicAnnotationConfiguration.class)
 public class MessageServiceAnnotationConfiguration {
 }
