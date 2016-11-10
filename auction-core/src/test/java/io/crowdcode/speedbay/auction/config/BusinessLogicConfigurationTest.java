@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -41,5 +42,12 @@ public class BusinessLogicConfigurationTest {
         service.bidOnAuction(auctionId, BigDecimal.valueOf(11));
         Auction found = service.findAuction(auctionId);
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
+    }
+
+    @Test
+    public void testListBeans() throws Exception {
+        Arrays.asList(context.getBeanDefinitionNames()).forEach((name) -> {
+            System.out.println(name + ": "+Arrays.toString(context.getAliases(name)));
+        });
     }
 }
