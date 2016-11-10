@@ -1,7 +1,6 @@
 package io.crowdcode.speedbay.auction.model;
 
 import io.crowdcode.speedbay.common.time.TimeMachine;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,8 +14,11 @@ import java.util.List;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Getter @Setter @Accessors(chain=true)
-@ToString @EqualsAndHashCode
+@Getter
+@Setter
+@Accessors(chain=true)
+@ToString
+//@EqualsAndHashCode
 public class Auction extends AbstractEntity {
 
     private String owner;
