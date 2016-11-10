@@ -4,7 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="auctionService" class="io.crowdcode.speedbay.auction.service.AuctionServiceBean">
-        <property name="auctionRepository" ref="auctionRepository"/>
+        <!--<property name="auctionRepository" ref="auctionRepository"/>-->
+        <constructor-arg index="0" ref="auctionRepository"/>
     </bean>
 
     <bean id="auctionRepository"
@@ -12,7 +13,7 @@
         <property name="store" ref="store"/>
     </bean>
 
-    <bean id="store" class="io.crowdcode.speedbay.common.inmemory.InMemoryStore">
+    <bean id="store" class="io.crowdcode.speedbay.common.inmemory.InMemoryStore" init-method="init">
 
     </bean>
 

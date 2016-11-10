@@ -5,7 +5,6 @@ import io.crowdcode.speedbay.auction.model.Bid;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 /**
@@ -38,7 +37,7 @@ public class AuctionFixture {
     public static Auction buildAuction() {
         return new Auction()
                 .setBeginDate(LocalDateTime.now())
-                .setExpireDate(LocalDateTime.now().plus(2, ChronoUnit.MINUTES))
+                .setExpireDate(LocalDateTime.now().plusMinutes(2))
                 .setOwner("unittest");
     }
 

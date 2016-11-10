@@ -6,9 +6,7 @@ import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
-import io.crowdcode.speedbay.common.time.TimeMachine;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,6 +21,12 @@ public class AuctionServiceBean implements AuctionService {
 
     private AuctionRepository auctionRepository;
 
+    public AuctionServiceBean() {
+    }
+
+    public AuctionServiceBean(AuctionRepository auctionRepository) {
+        this.auctionRepository = auctionRepository;
+    }
 
     public Long placeAuction(String title, String description, BigDecimal minAmount) {
 
@@ -47,7 +51,6 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findRunningAuctions() {
-        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
@@ -56,12 +59,11 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findExpiredAuctions() {
-        final LocalDateTime now = TimeMachine.now();
-        return auctionRepository
-                .findAll()
-                .parallelStream()
-                .filter(Auction::isExpired)
-                .collect(Collectors.toList());
+            return auctionRepository
+                    .findAll()
+                    .parallelStream()
+                    .filter(Auction::isExpired)
+                    .collect(Collectors.toList());
     }
 
     public void bidOnAuction(final Long auctionId, BigDecimal amount) throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException {

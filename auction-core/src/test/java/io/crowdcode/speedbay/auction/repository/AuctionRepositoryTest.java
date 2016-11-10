@@ -30,19 +30,15 @@ public class AuctionRepositoryTest {
     @Test
     public void testApplicationContextWithIntegration() throws Exception {
         //TODO AuctionRepository Bean aus dem ApplicationContext laden
-
         AuctionRepository repository = context.getBean("auctionRepository", AuctionRepository.class);
 
         assertNotNull(repository);
 
         // TODO AuctionService Bean aus dem ApplicationContext laden
-
         AuctionService service = context.getBean(AuctionService.class);
 
         assertNotNull(service);
 
-
-        // TODO Plaziere eine Auction (AuctionFixture.buildProductDetail) verwenden
 
         Auction auction = AuctionFixture.buildAuction();
 
