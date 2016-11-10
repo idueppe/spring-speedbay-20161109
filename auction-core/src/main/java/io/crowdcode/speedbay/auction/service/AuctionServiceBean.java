@@ -6,6 +6,11 @@ import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
+import io.crowdcode.speedbay.common.time.TimeMachine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -18,6 +23,7 @@ import static io.crowdcode.speedbay.common.AnsiColor.blue;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
+@Service
 @Slf4j
 public class AuctionServiceBean implements AuctionService {
 
@@ -54,6 +60,7 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findRunningAuctions() {
+        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
@@ -62,11 +69,12 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findExpiredAuctions() {
-            return auctionRepository
-                    .findAll()
-                    .parallelStream()
-                    .filter(Auction::isExpired)
-                    .collect(Collectors.toList());
+        final LocalDateTime now = TimeMachine.now();
+        return auctionRepository
+                .findAll()
+                .parallelStream()
+                .filter(Auction::isExpired)
+                .collect(Collectors.toList());
     }
 
     public void bidOnAuction(final Long auctionId, BigDecimal amount) throws AuctionNotFoundException, AuctionExpiredException, BidTooLowException {
