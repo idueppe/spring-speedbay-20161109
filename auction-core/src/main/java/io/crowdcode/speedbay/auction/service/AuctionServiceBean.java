@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static io.crowdcode.speedbay.common.AnsiColor.blue;
+
 /**
  * @author Ingo Düppe (Crowdcode)
  */
@@ -22,6 +24,7 @@ public class AuctionServiceBean implements AuctionService {
     private AuctionRepository auctionRepository;
 
     public AuctionServiceBean() {
+        log.info(blue("-------------------------------------"));
     }
 
     public AuctionServiceBean(AuctionRepository auctionRepository) {

@@ -6,12 +6,14 @@ import io.crowdcode.speedbay.auction.service.AuctionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
@@ -26,6 +28,9 @@ public class BusinessLogicConfigurationSpringTest {
 
     @Autowired
     private AuctionService auctionService;
+
+    @Autowired
+    private ApplicationContext context;
 
     @Test
     @Repeat(100)
@@ -44,5 +49,12 @@ public class BusinessLogicConfigurationSpringTest {
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
         assertThat(auctionService.findRunningAuctions(), hasSize(1));
 
+    }
+
+    @Test
+    public void testListBeans() throws Exception {
+        Arrays.asList(context.getBeanDefinitionNames()).forEach((name) -> {
+            System.out.println(name + ": "+Arrays.toString(context.getAliases(name)));
+        });
     }
 }
