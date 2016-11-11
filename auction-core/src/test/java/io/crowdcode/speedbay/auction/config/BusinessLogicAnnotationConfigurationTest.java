@@ -21,7 +21,10 @@ import static org.junit.Assert.assertNotNull;
  */
 @Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = BusinessLogicAnnotationConfiguration.class)
+@ContextConfiguration(classes =
+        {BusinessLogicAnnotationConfiguration.class,
+                LoggingBeanPostProcessorConfiguration.class
+        })
 public class BusinessLogicAnnotationConfigurationTest {
 
     @Autowired

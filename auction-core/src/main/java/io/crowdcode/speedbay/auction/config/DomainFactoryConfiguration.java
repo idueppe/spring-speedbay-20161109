@@ -60,7 +60,7 @@ public class DomainFactoryConfiguration {
     @Scope("prototype")
     @Order(value = 1)
     public Bid bidLow() {
-        return new Bid().setAmount(BigDecimal.ONE);
+        return new Bid().setAmount(BigDecimal.ONE).setEmail("donotreply@test.com");
     }
 
     @Bean
@@ -68,7 +68,7 @@ public class DomainFactoryConfiguration {
     @Order(value = 10)
     @Primary
     public Bid bidHigh() {
-        return new Bid().setAmount(BigDecimal.TEN);
+        return new Bid().setAmount(BigDecimal.TEN).setEmail("donotreply@test.com");
     }
 
 

@@ -2,6 +2,7 @@ package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static io.crowdcode.speedbay.common.AnsiColor.blue;
@@ -21,9 +23,19 @@ import static io.crowdcode.speedbay.common.AnsiColor.blue;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Service
 @Slf4j
+@Service
 public class AuctionServiceBean implements AuctionService {
+
+    @Autowired(required = false)
+    private Optional<BadWordValidator> badWordValidator = Optional.empty();
+
+//    private BadWordValidator badWordValidator;
+
+//    Ach wie schön wenn es funktionieren würde.
+//    @Autowired
+//    private Optional<BadWordValidator> badWordValidator;
+
 
     @Autowired
     private AuctionRepository auctionRepository;
@@ -36,7 +48,12 @@ public class AuctionServiceBean implements AuctionService {
         this.auctionRepository = auctionRepository;
     }
 
-    public Long placeAuction(String title, String description, BigDecimal minAmount) {
+    public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
+
+        if (badWordValidator.isPresent()) {
+            badWordValidator.get().checkBadWords(title);
+            badWordValidator.get().checkBadWords(description);
+        }
 
         if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
             minAmount = BigDecimal.ONE;
@@ -59,7 +76,6 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findRunningAuctions() {
-        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
@@ -68,7 +84,6 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public List<Auction> findExpiredAuctions() {
-        final LocalDateTime now = TimeMachine.now();
         return auctionRepository
                 .findAll()
                 .parallelStream()
