@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Import;
  * @author Ingo Düppe (Crowdcode)
  */
 @Configuration
-@Import(BusinessLogicAnnotationConfiguration.class) // Configuration importieren
-@EnableAspectJAutoProxy // AspektJ aktivieren
+@Import(BusinessLogicAnnotationConfiguration.class)
+@EnableAspectJAutoProxy
 public class AdviceConfiguration {
 
     @Bean
