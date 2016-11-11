@@ -15,9 +15,7 @@ import org.springframework.core.annotation.Order;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static io.crowdcode.speedbay.common.AnsiColor.blue;
-import static io.crowdcode.speedbay.common.AnsiColor.green;
-import static io.crowdcode.speedbay.common.AnsiColor.red;
+import static io.crowdcode.speedbay.common.AnsiColor.*;
 
 /**
  * @author Ingo Düppe (Crowdcode)

@@ -30,7 +30,7 @@ public class CachingBeanPostProcessor implements BeanPostProcessor {
         log.info(blue("Bean {} after initialization..."), beanName);
         if (bean instanceof AuctionRepository) {
             log.info(red("exchange with proxy"));
-            return new AuctionRepositoryCache((AuctionRepository)bean);
+            return new AuctionRepositoryCache((AuctionRepository) bean);
         }
         return bean;
     }

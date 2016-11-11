@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@Accessors(chain=true)
+@Accessors(chain = true)
 @ToString
 //@EqualsAndHashCode
 public class Auction extends AbstractEntity {
@@ -52,7 +52,6 @@ public class Auction extends AbstractEntity {
         return !beginDate.isAfter(now)
                 && expireDate.isAfter(now);
     }
-
 
 
 }

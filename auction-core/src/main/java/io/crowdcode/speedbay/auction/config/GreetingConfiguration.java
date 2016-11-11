@@ -31,7 +31,7 @@ public class GreetingConfiguration {
     public Greeting greeting() {
         log.info(red("Creating Greeting Bean"));
         Greeting greeting = new Greeting();
-        greeting.setMessage(green(""+System.currentTimeMillis()));
+        greeting.setMessage(green("" + System.currentTimeMillis()));
         return greeting;
     }
 }

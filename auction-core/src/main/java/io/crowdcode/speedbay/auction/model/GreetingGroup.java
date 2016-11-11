@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Getter @Setter
+@Getter
+@Setter
 public class GreetingGroup {
 
     private List<Greeting> greetings = new ArrayList<>();

@@ -41,6 +41,11 @@ public class BusinessLogicAnnotationConfiguration {
 //    }
 
 
+    @Value("classpath:application.properties")
+    private Resource resource;
+    @Value("#{systemProperties['java.io.tmpdir']}")
+    private String tmpDir;
+
     @Bean
     public String wert() throws IOException {
         log.info(red("tmpdir: {}"), tmpDir);
@@ -48,11 +53,5 @@ public class BusinessLogicAnnotationConfiguration {
         return (String) properties.get("key");
 
     }
-
-    @Value("classpath:application.properties")
-    private Resource resource;
-
-    @Value("#{systemProperties['java.io.tmpdir']}")
-    private String tmpDir;
 
 }

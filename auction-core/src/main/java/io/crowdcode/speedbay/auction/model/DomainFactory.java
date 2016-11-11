@@ -6,5 +6,6 @@ package io.crowdcode.speedbay.auction.model;
 public interface DomainFactory {
 
     Auction createAuction();
+
     Bid createBid();
 }

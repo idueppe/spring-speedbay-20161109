@@ -6,11 +6,11 @@ import lombok.Setter;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Setter @Getter
+@Setter
+@Getter
 public class Greeting {
 
     private String message;
-
 
 
 }

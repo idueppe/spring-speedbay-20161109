@@ -10,8 +10,11 @@ import lombok.experimental.Accessors;
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@Getter @Setter @Accessors(chain = true)
-@EqualsAndHashCode @ToString
+@Getter
+@Setter
+@Accessors(chain = true)
+@EqualsAndHashCode
+@ToString
 public abstract class AbstractEntity implements Identifiable<Long> {
 
     private Long id;

@@ -2,6 +2,7 @@ package io.crowdcode.speedbay.auction.util;
 
 import io.crowdcode.speedbay.auction.exception.AuctionExpiredException;
 import io.crowdcode.speedbay.auction.exception.AuctionNotFoundException;
+import io.crowdcode.speedbay.auction.exception.BadWordException;
 import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.service.AuctionService;
@@ -49,14 +50,14 @@ public class LogBeanPostProcessor implements BeanPostProcessor {
             this.target = target;
         }
 
-        public Long placeAuction(String title, String description, BigDecimal minAmount) {
+        public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
             return target.placeAuction(title, description, minAmount);
         }
 
         public Auction findAuction(Long auctionId) {
             log.info(green("Cached"));
             if (!cache.containsKey(auctionId)) {
-                 cache.put(auctionId, target.findAuction(auctionId));
+                cache.put(auctionId, target.findAuction(auctionId));
             }
             return cache.get(auctionId);
         }
