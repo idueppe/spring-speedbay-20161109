@@ -1,13 +1,14 @@
-package io.crowdcode.speedbay.auction.repository;
+package io.crowdcode.speedbay.auction.config;
 
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
+import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.auction.service.AuctionService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -20,15 +21,15 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * @author Ingo Düppe (Crowdcode)
+ * Created by idueppe on 05.04.17.
  */
-public class AuctionRepositoryTest {
+public class BusinessLogicConfigurationTest {
 
     private ApplicationContext context;
 
     @Before
     public void setup() {
-        context = new ClassPathXmlApplicationContext("classpath:applicationContext-exercise-6.xml");
+        context = new AnnotationConfigApplicationContext(BusinessLogicConfiguration.class);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class AuctionRepositoryTest {
         for (String beanName: names) {
             Class<?> type = context.getType(beanName);
             String[] alias = context.getAliases(beanName);
-            System.out.println(beanName+":"+type.getCanonicalName()+"|"+Arrays.toString(alias));
+            System.out.println(beanName+":"+type.getCanonicalName()+"|"+ Arrays.toString(alias));
         }
     }
 
@@ -89,16 +90,5 @@ public class AuctionRepositoryTest {
 
         Assert.assertThat(auction.getId(), is(greaterThan(1l)));
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
