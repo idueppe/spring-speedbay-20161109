@@ -3,12 +3,12 @@ package io.crowdcode.speedbay.auction.model;
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 /**
- * Created by idueppe on 05.04.17.
+ * @author Ingo Düppe (Crowdcode)
  */
 public class AuctionTest {
 

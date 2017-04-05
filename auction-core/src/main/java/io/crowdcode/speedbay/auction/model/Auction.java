@@ -3,6 +3,7 @@ package io.crowdcode.speedbay.auction.model;
 import io.crowdcode.speedbay.common.time.TimeMachine;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
@@ -11,16 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by idueppe on 05.04.17.
+ * @author Ingo Düppe (Crowdcode)
  */
 @Getter
 @Setter
-@Accessors(chain = true)
+@Accessors(chain=true)
+@ToString
+//@EqualsAndHashCode
 public class Auction extends AbstractEntity {
 
     private String owner;
-    private LocalDateTime expireDate;
     private LocalDateTime beginDate;
+    private LocalDateTime expireDate;
 
     private BigDecimal minAmount;
 
@@ -36,13 +39,17 @@ public class Auction extends AbstractEntity {
                 .orElse(new Bid().setAmount(BigDecimal.ZERO).setEmail("-"));
     }
 
+
     public boolean isExpired() {
         return expireDate.isBefore(TimeMachine.now());
     }
 
     public boolean isRunning() {
         LocalDateTime now = TimeMachine.now();
-        return (!now.isBefore(beginDate) && expireDate.isAfter(now));
+        return !beginDate.isAfter(now)
+                && expireDate.isAfter(now);
     }
+
+
 
 }

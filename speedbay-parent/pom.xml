@@ -20,11 +20,10 @@
 
 	<description>Customized Spring Cloud Parent for SpeedBay</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
-		<outputFolder>${project.build.directory}/${project.artifactId}
-		</outputFolder>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <outputFolder>${project.build.directory}/${project.artifactId}</outputFolder>
 
 		<spring-restdocs.version>1.1.0.RELEASE</spring-restdocs.version>
 	</properties>

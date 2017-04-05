@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 /**
- * Created by idueppe on 05.04.17.
+ * @author Ingo Dueppe (Crowdcode)
  */
 public class AuctionFixture {
 

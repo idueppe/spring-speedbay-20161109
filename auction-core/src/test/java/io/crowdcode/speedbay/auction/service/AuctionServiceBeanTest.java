@@ -1,23 +1,32 @@
 package io.crowdcode.speedbay.auction.service;
 
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-public class AuctionServiceTest {
+public class AuctionServiceBeanTest {
 
     @Test
     public void testApplicationContext() throws Exception {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        AuctionService auctionService1 = (AuctionService) context.getBean("auctionService");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        context.getBean(AuctionService.class);
+
         AuctionService auctionService = context.getBean("auctionService", AuctionService.class);
+
         assertNotNull(auctionService);
 
-        ((ClassPathXmlApplicationContext)context).close();
+        Arrays.stream(context.getBeanDefinitionNames())
+                .forEach(
+                        beanName -> System.out.println(beanName));
+
+        context.close();
+
     }
 }
