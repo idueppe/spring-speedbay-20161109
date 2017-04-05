@@ -3,16 +3,19 @@ package io.crowdcode.speedbay.auction.repository;
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.service.AuctionService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -32,6 +35,7 @@ public class AuctionRepositoryTest {
         //AuctionRepository Bean aus dem ApplicationContext laden
 
         AuctionRepository repository = context.getBean("auctionRepository", AuctionRepository.class);
+//        AuctionRepository repository = (AuctionRepository) context.getBean("auctionRepository");
 
         assertNotNull(repository);
 
@@ -60,6 +64,38 @@ public class AuctionRepositoryTest {
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
     }
 
+    @Test
+    public void testPrintBeanNames() throws Exception {
+        String[] names = context.getBeanDefinitionNames();
+        for (String beanName: names) {
+            Class<?> type = context.getType(beanName);
+            String[] alias = context.getAliases(beanName);
+            System.out.println(beanName+":"+type.getCanonicalName()+"|"+Arrays.toString(alias));
+        }
+    }
 
+    @Test
+    public void testIdAfterSave() throws Exception {
+        AuctionRepository repository = context.getBean(AuctionRepository.class);
 
+        Auction auction = AuctionFixture.buildDefaultAuction();
+
+        assertThat(auction.getId(), is(nullValue()));
+
+        repository.save(auction);
+
+        Assert.assertThat(auction.getId(), is(notNullValue()));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

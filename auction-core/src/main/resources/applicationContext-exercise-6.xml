@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="auctionService" class="io.crowdcode.speedbay.auction.service.AuctionServiceBean">
+        <!--<property name="auctionRepository" ref="auctionRepository"></property>-->
+        <constructor-arg name="auctionRepository" ref="auctionRepository" index="0"></constructor-arg>
+    </bean>
+
+    <bean id="auctionRepository"
+          class="io.crowdcode.speedbay.auction.repository.inmemory.AuctionRepositoryInMemoryBean">
+        <property name="store" ref="auctionInMemoryStore"></property>
+    </bean>
+
+    <bean id="auctionInMemoryStore" class="io.crowdcode.speedbay.common.inmemory.InMemoryStore" init-method="init"/>
+
+</beans>
