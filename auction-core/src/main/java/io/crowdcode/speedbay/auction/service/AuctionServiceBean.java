@@ -7,6 +7,8 @@ import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,8 +19,10 @@ import java.util.stream.Collectors;
  * @author Ingo Düppe (Crowdcode)
  */
 @Slf4j
+@Service
 public class AuctionServiceBean implements AuctionService {
 
+    @Autowired
     private AuctionRepository auctionRepository;
 
     public AuctionServiceBean() {
