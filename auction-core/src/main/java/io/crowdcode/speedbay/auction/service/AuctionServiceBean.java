@@ -27,12 +27,11 @@ public class AuctionServiceBean implements AuctionService {
 //    @Autowired
     private AuctionRepository auctionRepository;
 
-    public AuctionServiceBean() {
-    }
-
     @Autowired(required = false)
     private Optional<BadWordValidator> badWordValidator = Optional.empty();
 
+    public AuctionServiceBean() {
+    }
 
     @Autowired
     public AuctionServiceBean(AuctionRepository auctionRepository) {
