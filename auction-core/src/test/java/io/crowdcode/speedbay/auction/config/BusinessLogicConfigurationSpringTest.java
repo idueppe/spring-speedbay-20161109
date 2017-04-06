@@ -41,7 +41,7 @@ public class BusinessLogicConfigurationSpringTest {
     }
 
     @Test
-    @Repeat(100)
+    @Repeat(10)
     @DirtiesContext
     public void testApplicationContextWithIntegration() throws Exception {
         Auction auction = AuctionFixture.buildDefaultAuction();
