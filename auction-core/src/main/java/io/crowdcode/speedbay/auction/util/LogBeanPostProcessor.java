@@ -18,7 +18,7 @@ public class LogBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        log.debug(AnsiColor.yellow("Post processing bean {} of type {} before initialization."), beanName, bean
+        log.debug(AnsiColor.yellow("Post processing bean {} of type {} after initialization."), beanName, bean
                 .getClass().getCanonicalName());
         return bean;
     }
