@@ -26,9 +26,9 @@ public class AuctionServiceBean implements AuctionService {
 //    @Autowired
     private AuctionRepository auctionRepository;
 
-//    public AuctionServiceBean() {
-//    }
-//
+    public AuctionServiceBean() {
+    }
+
     @Autowired
     public AuctionServiceBean(AuctionRepository auctionRepository) {
         log.info(AnsiColor.purple("Creating AuctionServiceBean with {}"),auctionRepository);
