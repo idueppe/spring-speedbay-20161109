@@ -3,22 +3,25 @@ package io.crowdcode.speedbay.auction.service;
 import io.crowdcode.speedbay.auction.config.BadWordValidatorConfiguration;
 import io.crowdcode.speedbay.auction.config.BusinessLogicAnnotationConfiguration;
 import io.crowdcode.speedbay.auction.exception.BadWordException;
+import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
+import io.crowdcode.speedbay.auction.model.Auction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
  * @author Ingo Düppe (Crowdcode)
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration(
         classes =
                 {
@@ -29,6 +32,9 @@ public class BadWordValidatorBeanTest {
 
     @Autowired
     private BadWordValidator validator;
+
+    @Autowired
+    private AuctionService auctionService;
 
     @Test(expected = BadWordException.class)
     public void testBadWordCheck() throws Exception {
@@ -48,6 +54,19 @@ public class BadWordValidatorBeanTest {
 //    }
 
     @Test
+    public void testIfBeansAreCorrectlyWiredTogether() throws Exception {
+        Auction fixture = AuctionFixture.buildDefaultAuction();
+        Long auctionId = auctionService
+                .placeAuction(
+                        fixture.getTitle(),
+                        fixture.getDescription(),
+                        fixture.getMinAmount());
+
+        Auction auction = auctionService.findAuction(auctionId);
+        assertNotNull(auction);
+    }
+
+    @Test
     public void testIsValid() throws Exception {
         assertTrue(validator.isInvalid("PERL"));
     }
@@ -56,9 +75,9 @@ public class BadWordValidatorBeanTest {
     public void testRegex() throws Exception {
         String[] splitA = "PHP,PERL,C++,.NET,NodeJS,ReleaseZyklen".split("\\,\\s?");
         System.out.println(Arrays.toString(splitA));
-        assertThat(splitA.length,is(6));
+        assertThat(splitA.length, is(6));
         String[] splitB = "PHP,PERL, C++, .NET,\tNodeJS,\nReleaseZyklen".split("\\,\\s?");
         System.out.println(Arrays.toString(splitB));
-        assertThat(splitB.length,is(6));
+        assertThat(splitB.length, is(6));
     }
 }
