@@ -10,13 +10,16 @@ import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
+
+import java.util.List;
 
 @Configuration
 public class BusinessLogicConfiguration {
 
-    @Bean
+    @Bean(name = {"auctionService", "auctionServiceBean","serviceAuction"})
     public AuctionService auctionService(AuctionRepository auctionRepository) {
-        AuctionServiceBean bean = new AuctionServiceBean();
+        AuctionServiceBean bean = new AuctionServiceBean(auctionRepository);
         bean.setAuctionRepository(auctionRepository);
         return bean;
     }
@@ -32,7 +35,13 @@ public class BusinessLogicConfiguration {
     }
 
     @Bean
+    public List<InMemoryStore<?>> stores(List<InMemoryStore<?>> stores) {
+        return stores;
+    }
+
+    @Bean
     @Primary
+    @Order(4711)
     public InMemoryStore<Auction> inMemoryStoreForAuctions() {
         InMemoryStore<Auction> inMemoryStore = new InMemoryStore<>();
         inMemoryStore.init();
@@ -40,6 +49,7 @@ public class BusinessLogicConfiguration {
     }
 
     @Bean
+    @Order(42)
     public InMemoryStore<Auction> inMemoryForExpiredAuctions() {
         InMemoryStore<Auction> inMemoryStore = new InMemoryStore<>();
         inMemoryStore.init();
