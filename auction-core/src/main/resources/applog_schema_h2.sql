@@ -1,0 +1,8 @@
+DROP TABLE Application_Log;
+DROP SEQUENCE AppLogSequence;
+CREATE TABLE Application_Log (
+  id       NUMBER(38) PRIMARY KEY NOT NULL,
+  message   CHARACTER VARYING(2048),
+  createdBy CHARACTER VARYING(100),
+  createdAt TIMESTAMP);
+CREATE SEQUENCE AppLogSequence;
