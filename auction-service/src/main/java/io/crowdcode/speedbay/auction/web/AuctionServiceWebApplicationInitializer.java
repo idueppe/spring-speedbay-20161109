@@ -7,10 +7,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-/**
- * Created by idueppe on 06.04.17.
- */
-public class WebApplicationInitializerBean implements WebApplicationInitializer {
+
+public class AuctionServiceWebApplicationInitializer implements WebApplicationInitializer {
     private static final String DISPATCHER_SERVLET_NAME = "auction-service";
     private static final String URL_PATTERN = "/*";
 
@@ -18,7 +16,7 @@ public class WebApplicationInitializerBean implements WebApplicationInitializer 
 
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.register(WebMvcConfig.class);
+        context.register(WebMvcConfiguration.class);
 
         DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
