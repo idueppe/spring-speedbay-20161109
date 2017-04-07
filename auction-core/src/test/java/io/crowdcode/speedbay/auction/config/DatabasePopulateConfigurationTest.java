@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @Slf4j
@@ -35,14 +35,18 @@ public class DatabasePopulateConfigurationTest {
     private DataSource dataSource;
 
     @Test
-    @Repeat(3)
+    @Repeat(2)
     public void testJdbcTemplate() throws Exception {
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-        jdbcTemplate.update(INSERT_ONE, new MapSqlParameterSource()
+        int changedRowNumber = jdbcTemplate.update(INSERT_ONE, new MapSqlParameterSource()
                 .addValue("message", "Log Message 1")
                 .addValue("createdBy", "USER")
                 .addValue("createdAt", Timestamp.valueOf(LocalDateTime.now())));
+
+        assertThat(changedRowNumber, is(1));
+
+        // FIXME retrieve last given ID from Database
 
         MapSqlParameterSource parameters = new MapSqlParameterSource("id", 1l);
         String result = jdbcTemplate.queryForObject(SELECT_ONE, parameters, String.class);
