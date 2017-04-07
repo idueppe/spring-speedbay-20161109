@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ public class Auction extends AbstractEntity {
     public Bid getHighestBid() {
         return bids
                 .stream()
-                .max((b1, b2) -> b1.getAmount().compareTo(b2.getAmount()))
+                .max(Comparator.comparing(Bid::getAmount))
                 .orElse(new Bid().setAmount(BigDecimal.ZERO).setEmail("-"));
     }
 
@@ -60,7 +61,5 @@ public class Auction extends AbstractEntity {
         return !beginDate.isAfter(now)
                 && expireDate.isAfter(now);
     }
-
-
 
 }
