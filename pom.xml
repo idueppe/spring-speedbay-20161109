@@ -14,6 +14,7 @@
         <module>speedbay-commons</module>
         <module>auction-core</module>
         <module>auction-service</module>
+        <module>greeting-service</module>
     </modules>
 
 </project>
