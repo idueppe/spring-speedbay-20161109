@@ -9,6 +9,6 @@ public interface Identifiable<ID extends Serializable> {
 
     ID getId();
 
-    void setId(ID id);
+    <T extends Identifiable<ID>> T setId(ID id);
 
 }
