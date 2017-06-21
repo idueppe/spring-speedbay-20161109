@@ -17,12 +17,13 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = BusinessLogicConfiguration.class)
+@ContextConfiguration(classes = { BusinessLogicConfiguration.class, BusinessLogicEnhancedConfiguration.class })
 public class BusinessLogicConfigurationSpringTest {
 
     @Autowired
@@ -52,6 +53,8 @@ public class BusinessLogicConfigurationSpringTest {
 
         assertThat(found.getHighestBid().getAmount().doubleValue(), is(11.0));
         assertThat(auctionService.findRunningAuctions(),hasSize(1));
+
+        assertThat(found.getId(), is(greaterThan(0l)));
     }
 
     @Test
