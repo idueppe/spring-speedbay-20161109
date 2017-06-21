@@ -23,7 +23,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = { BusinessLogicConfiguration.class, BusinessLogicEnhancedConfiguration.class })
+@ContextConfiguration(classes = { BusinessLogicConfiguration.class })
 public class BusinessLogicConfigurationSpringTest {
 
     @Autowired
