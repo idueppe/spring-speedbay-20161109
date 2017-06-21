@@ -3,6 +3,7 @@ package io.crowdcode.speedbay.auction.repository;
 import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.service.AuctionService;
+import io.crowdcode.speedbay.common.AnsiColor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +36,7 @@ public class AuctionRepositoryTest {
         //AuctionRepository Bean aus dem ApplicationContext laden
 
         AuctionRepository repository = context.getBean("auctionRepository", AuctionRepository.class);
+
 //        AuctionRepository repository = (AuctionRepository) context.getBean("auctionRepository");
 
         assertNotNull(repository);
@@ -66,12 +68,15 @@ public class AuctionRepositoryTest {
 
     @Test
     public void testPrintBeanNames() throws Exception {
-        String[] names = context.getBeanDefinitionNames();
-        for (String beanName: names) {
-            Class<?> type = context.getType(beanName);
-            String[] alias = context.getAliases(beanName);
-            System.out.println(beanName+":"+type.getCanonicalName()+"|"+Arrays.toString(alias));
-        }
+        Arrays.stream(context.getBeanDefinitionNames())
+                .map(beanId -> {
+                    Class<?> type = context.getType(beanId);
+                    String[] alias = context.getAliases(beanId);
+                    return AnsiColor.blue(beanId+":"+type.getCanonicalName()+"|"+Arrays.toString(alias));
+                })
+                .forEach(
+                        System.out::println
+                );
     }
 
     @Test

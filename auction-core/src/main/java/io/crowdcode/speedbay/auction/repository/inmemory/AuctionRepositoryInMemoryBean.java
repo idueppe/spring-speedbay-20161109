@@ -3,6 +3,7 @@ package io.crowdcode.speedbay.auction.repository.inmemory;
 
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
+import io.crowdcode.speedbay.auction.service.AuctionService;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
 
 import java.util.List;
@@ -14,6 +15,13 @@ import java.util.Optional;
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
     private InMemoryStore<Auction> store;
+    private String name;
+    private AuctionService auctionService;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     @Override
     public Optional<Auction> find(Long auctionId) {
@@ -42,5 +50,9 @@ public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
     public void setStore(InMemoryStore<Auction> store) {
         this.store = store;
+    }
+    
+    public void setService(AuctionService auctionService) {
+        this.auctionService = auctionService;
     }
 }
