@@ -4,6 +4,7 @@ import io.crowdcode.speedbay.auction.fixture.AuctionFixture;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
 import io.crowdcode.speedbay.auction.service.AuctionService;
+import io.crowdcode.speedbay.common.AnsiColor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +73,7 @@ public class BusinessLogicConfigurationTest {
         for (String beanName: names) {
             Class<?> type = context.getType(beanName);
             String[] alias = context.getAliases(beanName);
-            System.out.println(beanName+":"+type.getCanonicalName()+"|"+ Arrays.toString(alias));
+            System.out.println(AnsiColor.green(beanName+":"+type.getCanonicalName()+"|"+ Arrays.toString(alias)));
         }
     }
 

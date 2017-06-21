@@ -10,9 +10,9 @@
     <bean id="auctionRepository" name="aR, aRepository"
           class="io.crowdcode.speedbay.auction.repository.inmemory.AuctionRepositoryInMemoryBean">
         <property name="store" ref="store"/>
-        <property name="service" ref="auctionService"/>
+        <!--<property name="service" ref="auctionService"/>-->
     </bean>
 
-    <bean id="store" class="io.crowdcode.speedbay.common.inmemory.InMemoryStore"></bean>
+    <bean id="store" class="io.crowdcode.speedbay.common.inmemory.InMemoryStore" init-method="init"></bean>
 
 </beans>
