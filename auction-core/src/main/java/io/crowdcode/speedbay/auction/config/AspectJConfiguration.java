@@ -1,5 +1,6 @@
 package io.crowdcode.speedbay.auction.config;
 
+import io.crowdcode.speedbay.auction.util.CountBidAdvice;
 import io.crowdcode.speedbay.auction.util.LoggingAdvice;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,5 +18,10 @@ public class AspectJConfiguration {
     @Bean
     public LoggingAdvice loggingAdvice() {
         return new LoggingAdvice();
+    }
+
+    @Bean
+    public CountBidAdvice countBidAdvice() {
+        return new CountBidAdvice();
     }
 }
