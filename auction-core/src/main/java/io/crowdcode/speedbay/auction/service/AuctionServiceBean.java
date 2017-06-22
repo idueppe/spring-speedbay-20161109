@@ -41,10 +41,9 @@ public class AuctionServiceBean implements AuctionService {
     }
 
     public Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException {
-
         if (badWordValidator.isPresent()) {
-            badWordValidator.get().checkBadWords(title);
-            badWordValidator.get().checkBadWords(description);
+            this.badWordValidator.get().checkBadWords(description);
+            this.badWordValidator.get().checkBadWords(title);
         }
 
         if (minAmount == null || minAmount.compareTo(BigDecimal.ONE) <= 0) {
