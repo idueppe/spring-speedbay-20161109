@@ -13,7 +13,11 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = {
                 @ComponentScan.Filter(
                         type = FilterType.REGEX,
-                        pattern = "io\\.crowdcode\\.speedbay\\.auction\\.config.*")
+                        pattern = "io\\.crowdcode\\.speedbay\\.auction\\.config.*"),
+                @ComponentScan.Filter(
+                        type = FilterType.REGEX,
+                        pattern = ".*ApplicationLog.*"
+                )
         }
 )
 public class BusinessLogicAnnotationConfiguration {
