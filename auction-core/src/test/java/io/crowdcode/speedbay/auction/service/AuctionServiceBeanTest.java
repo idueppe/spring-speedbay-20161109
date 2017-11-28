@@ -7,7 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Arrays;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class AuctionServiceBeanTest {
 
@@ -20,8 +21,6 @@ public class AuctionServiceBeanTest {
         // Bean by Name
 //        String name = (String) context.getBean("hugo");
 //        String nameService = (String) context.getBean("auctionService");
-
-
 
         // AuctionService Bean by Name And Type aus dem Kontext holen.
         AuctionService serviceByNameAndType = context.getBean("auctionService", AuctionService.class);

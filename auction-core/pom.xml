@@ -29,6 +29,15 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>
+        <dependency>
+            <groupId>io.crowdcode.speedbay</groupId>
+            <artifactId>speedbay-commons</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
