@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,7 @@ public class Auction extends AbstractEntity {
     private BigDecimal minAmount;
     private String title;
     private String description;
-    private List<Bid> bids;
+    private List<Bid> bids = new ArrayList<>();
 
     public Bid getHighestBid() {
         return bids

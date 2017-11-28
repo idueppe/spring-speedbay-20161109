@@ -3,16 +3,23 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
-
     <bean id="auctionService"
           name="hugo"
           class="io.crowdcode.speedbay.auction.service.AuctionServiceBean">
-
+        <!-- Constructor Inject -->
+        <constructor-arg ref="auctionRepository"/>
     </bean>
 
     <bean id="auctionServiceDefault"
           class="io.crowdcode.speedbay.auction.service.DefaultAuctionServiceBean"/>
 
+    <bean id="auctionRepository"
+          class="io.crowdcode.speedbay.auction.repository.AuctionRepositoryInMemoryBean">
+        <property name="store" ref="inMemoryStore"/>
+    </bean>
+
+    <bean id="inMemoryStore"
+          class="io.crowdcode.speedbay.common.inmemory.InMemoryStore">
+    </bean>
 
 </beans>
