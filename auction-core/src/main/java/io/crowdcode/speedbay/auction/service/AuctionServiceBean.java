@@ -6,22 +6,30 @@ import io.crowdcode.speedbay.auction.exception.BidTooLowException;
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.auction.model.Bid;
 import io.crowdcode.speedbay.auction.repository.AuctionRepository;
+import io.crowdcode.speedbay.common.AnsiColor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AuctionServiceBean implements AuctionService {
+@Slf4j
+@Service
+public class AuctionServiceBean implements AuctionService, InitializingBean {
 
     // Autowired mit Field Injection
-    // @Autowired
-    // @Qualifier("auctionService")
+    //  @Autowired
+    // @Qualifier("auctionRepository")
     private AuctionRepository auctionRepository;
 
     // Autowired mit Constructor Injection
-    // @Autowired
-    // @Qualifier("auctionService")
+    @Autowired
+    // @Qualifier("auctionRepository")
     public AuctionServiceBean(AuctionRepository repository) {
         this.auctionRepository = repository;
     }
@@ -29,6 +37,22 @@ public class AuctionServiceBean implements AuctionService {
     // Autowired mit Setter Injection
     public AuctionServiceBean() {
     }
+
+    @PostConstruct
+    public void postConstructorKannHeissenWieSieWill() {
+        log.info(AnsiColor.green("------------------------------------------ POSTCONSTRUCT"));
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info(AnsiColor.green("------------------------------------------ afterPropertiesSet"));
+
+    }
+
+    public void init() {
+        log.info(AnsiColor.green("------------------------------------------ Init"));
+    }
+
 
     // @Autowired
     // @Qualifier("auctionService")
@@ -84,4 +108,5 @@ public class AuctionServiceBean implements AuctionService {
 
         auctionRepository.save(auction);
     }
+
 }

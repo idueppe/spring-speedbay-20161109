@@ -7,12 +7,22 @@ import io.crowdcode.speedbay.auction.repository.AuctionRepositoryInMemoryBean;
 import io.crowdcode.speedbay.auction.service.AuctionService;
 import io.crowdcode.speedbay.auction.service.AuctionServiceBean;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.annotation.Order;
+
+import java.util.List;
+
+// Java basierte Konfiguration
 
 //@AllianzConfiguration
+@Slf4j
 @Configuration
 public class BusinessLogicConfiguration {
+
+    // Bean Factory Methoden
 
     @Bean
     public AuctionService auctionService(AuctionRepository auctionRepository) {
@@ -27,12 +37,26 @@ public class BusinessLogicConfiguration {
     }
 
     @Bean
+    public String oneInMemoryStore(InMemoryStore<?> store) {
+        return "hat geklappt";
+    }
+
+    @Bean
+    public String allInMemoryStores(List<InMemoryStore> stores) {
+        stores.stream().forEach(s -> log.info(s.toString()));
+        return "hat auch geklappt";
+    }
+
+    @Bean
+    @Primary
+    @Order(-55)
     public InMemoryStore<Auction> inMemoryStore() {
         return new InMemoryStore<>();
     }
 
     // das geht seit Spring 4.3
     @Bean(name = {"id", "alias"})
+    @Order(-54)
     public InMemoryStore<Bid> inMemoryStoreBid() {
         return new InMemoryStore<>();
     }

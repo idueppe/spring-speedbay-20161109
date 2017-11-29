@@ -1,5 +1,6 @@
 package io.crowdcode.speedbay.common.inmemory;
 
+import io.crowdcode.speedbay.common.AnsiColor;
 import io.crowdcode.speedbay.common.Identifiable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class InMemoryStore<T extends Identifiable<Long>> {
 
     public void init() {
         sequence = System.currentTimeMillis();
-        log.info("initialized in memory store with sequence {} ", sequence);
+        log.info(AnsiColor.green("initialized in memory store with sequence {} "), sequence);
     }
 
     public void save(T entity) {

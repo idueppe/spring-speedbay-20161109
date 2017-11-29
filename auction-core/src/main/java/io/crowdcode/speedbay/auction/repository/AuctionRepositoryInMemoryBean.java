@@ -2,13 +2,25 @@ package io.crowdcode.speedbay.auction.repository;
 
 import io.crowdcode.speedbay.auction.model.Auction;
 import io.crowdcode.speedbay.common.inmemory.InMemoryStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 
+//@Repository // Spring Bean
+@Component
 public class AuctionRepositoryInMemoryBean implements AuctionRepository {
 
+    @Autowired
     private InMemoryStore<Auction> store;
+
+    @Autowired
+    private List<InMemoryStore> stores;
+
+    @Autowired(required = false)
+    private Optional<InMemoryStore> optionalStore = Optional.empty();
+
     private String repositoryName;
 
     @Override
