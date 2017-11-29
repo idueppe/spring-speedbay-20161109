@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-test.xml"})
+@ContextConfiguration(locations = {"classpath:application*.xml"})
 public class TwoApplicationContextXmlTest {
 
     @Autowired
@@ -18,10 +18,6 @@ public class TwoApplicationContextXmlTest {
 
     @Test
     public void testApplicationContext() throws Exception {
-        // Instanzieren einen Spring (Application) Context
-//        ApplicationContext context =
-//                new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
-
         Arrays.stream(context.getBeanDefinitionNames()).forEach(System.out::println);
 
     }

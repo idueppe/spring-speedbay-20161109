@@ -14,10 +14,26 @@ import java.util.stream.Collectors;
 
 public class AuctionServiceBean implements AuctionService {
 
+    // Autowired mit Field Injection
+//    @Autowired
+//    @Qualifier("auctionService")
     private AuctionRepository auctionRepository;
 
+    // Autowired mit Constructor Injection
+    // @Autowired
+    // @Qualifier("auctionService")
     public AuctionServiceBean(AuctionRepository repository) {
         this.auctionRepository = repository;
+    }
+
+    // Autowired mit Setter Injection
+    public AuctionServiceBean() {
+    }
+
+    // @Autowired
+    // @Qualifier("auctionService")
+    public void setAuctionRepository(AuctionRepository auctionRepository) {
+        this.auctionRepository = auctionRepository;
     }
 
     @Override
