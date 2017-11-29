@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.jndi.JndiObjectFactoryBean;
 
 import javax.sql.DataSource;
 
@@ -42,11 +41,11 @@ public class BusinessLogicAnnotationConfiguration {
         return null;
     }
 
-    @Bean
-    public JndiObjectFactoryBean dataSourceFromJndiFactoryBean() {
-        JndiObjectFactoryBean factoryBean = new JndiObjectFactoryBean();
-        factoryBean.setJndiName("/jndi/datasource/productDB");
-        return factoryBean;
-    }
+//    @Bean
+//    public JndiObjectFactoryBean dataSourceFromJndiFactoryBean() {
+//        JndiObjectFactoryBean factoryBean = new JndiObjectFactoryBean();
+//        factoryBean.setJndiName("/jndi/datasource/productDB");
+//        return factoryBean;
+//    }
 
 }
