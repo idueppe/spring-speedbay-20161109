@@ -28,8 +28,17 @@ public class ApplicationLogServiceBean implements ApplicationLogService {
         logRepository.log(msg, LocalDateTime.now(), username);
     }
 
+//    public void updateMessage(String createdBy) {
+//        Message message = logRepository.getLastMessage();
+//        message.setCreatedBy(createdBy);
+//
+//        // rollback der Transaktion
+//
+//        //Welcher Wert steht in Message.getCreatedBy? Parameter Wert
+//    }
+
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS)
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Message> lastLogs(Duration duration) {
         LocalDateTime to = LocalDateTime.now();
         LocalDateTime from = to.minus(duration);

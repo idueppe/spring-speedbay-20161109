@@ -9,13 +9,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import javax.sql.DataSource;
+
 @Configuration
 @Import({DatabasePopulateConfiguration.class})
 public class ApplicationLogConfiguration {
 
     @Bean
-    public ApplicationLogRepository applicationLogRepositoryBean() {
-        return new ApplicationLogRepositoryBean();
+    public ApplicationLogRepository applicationLogRepositoryBean(DataSource dataSource) {
+        return new ApplicationLogRepositoryBean(dataSource);
     }
 
     @Bean
