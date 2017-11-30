@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.sql.DataSource;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertThat;
         JdbcTransactionConfiguration.class,
         DatabasePopulateConfiguration.class
 })
+@TestPropertySource(properties = "stage=h2")
 public class DatabasePopulateConfigurationTest {
 
     private static final String INSERT_ONE =

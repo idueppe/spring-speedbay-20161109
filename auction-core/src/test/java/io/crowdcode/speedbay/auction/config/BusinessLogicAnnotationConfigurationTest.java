@@ -12,13 +12,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertNotNull;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = BusinessLogicAnnotationConfiguration.class)
+@ContextConfiguration(classes = {BusinessLogicAnnotationConfiguration.class,
+        DataSourceConfiguration.class})
+@TestPropertySource(properties = "stage=h2")
 public class BusinessLogicAnnotationConfigurationTest {
 
     @Autowired

@@ -1,7 +1,6 @@
 package io.crowdcode.speedbay.auction.service;
 
 import io.crowdcode.speedbay.auction.config.BadWordValidatorConfiguration;
-import io.crowdcode.speedbay.auction.config.BusinessLogicAnnotationConfiguration;
 import io.crowdcode.speedbay.auction.exception.BadWordException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration(
         classes =
                 {
-                        BusinessLogicAnnotationConfiguration.class,
                         BadWordValidatorConfiguration.class
                 })
 public class BadWordValidatorBeanTest {

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(BusinessLogicAnnotationConfiguration.class)
+@Import({BusinessLogicAnnotationConfiguration.class, DataSourceConfiguration.class})
 @EnableAspectJAutoProxy
 public class AdviceConfiguration {
 }
