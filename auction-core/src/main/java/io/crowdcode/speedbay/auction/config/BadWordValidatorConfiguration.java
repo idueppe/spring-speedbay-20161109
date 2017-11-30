@@ -1,6 +1,5 @@
 package io.crowdcode.speedbay.auction.config;
 
-import io.crowdcode.speedbay.auction.service.BadWordValidator;
 import io.crowdcode.speedbay.auction.service.BadWordValidatorBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BadWordValidatorConfiguration {
 
-    @Bean
-    public BadWordValidator badWordValidator() {
-        return new BadWordValidatorBean();
+    @Bean()
+    public BadWordValidatorBean badWordValidator() {
+        BadWordValidatorBean bean = new BadWordValidatorBean();
+        return bean;
     }
 }

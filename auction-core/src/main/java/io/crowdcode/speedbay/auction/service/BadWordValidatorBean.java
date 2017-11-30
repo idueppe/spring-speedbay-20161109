@@ -29,11 +29,16 @@ public class BadWordValidatorBean implements BadWordValidator {
     private List<String> badWords;
 
 //    public BadWordValidatorBean(@Value("classpath:badWords.txt") Resource badWordsFile) {
-//
+//        this.badWordsFile = badWordsFile;
+//        init();
+//    }
+
+//    public BadWordValidatorBean() {
+//        init();
 //    }
 
     @PostConstruct
-    private void postConstruct() {
+    public void init() {
         log.info(green("init bad word validate"));
 
         try (InputStream is = badWordsFile.getInputStream();

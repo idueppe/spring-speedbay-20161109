@@ -56,9 +56,9 @@ public class BadWordValidatorBeanTest {
     public void testRegex() throws Exception {
         String[] splitA = "PHP,PERL,C++,.NET,NodeJS,ReleaseZyklen".split("\\,\\s?");
         System.out.println(Arrays.toString(splitA));
-        assertThat(splitA.length,is(6));
+        assertThat(splitA.length, is(6));
         String[] splitB = "PHP,PERL, C++, .NET,\tNodeJS,\nReleaseZyklen".split("\\,\\s?");
         System.out.println(Arrays.toString(splitB));
-        assertThat(splitB.length,is(6));
+        assertThat(splitB.length, is(6));
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface AuctionService {
 
-    Long placeAuction(String title, String description, BigDecimal minAmount);
+    Long placeAuction(String title, String description, BigDecimal minAmount) throws BadWordException;
 
     Auction findAuction(Long auctionId);
 
